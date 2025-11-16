@@ -7,7 +7,6 @@ on:
 
 permissions:
   contents: read
-  id-token: write
 
 jobs:
   terraform:
@@ -17,20 +16,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 🔐 Azure Login with Workload Identity (OIDC)
+      # 🔐 Azure Login with Service Principal
       - name: Azure Login
         uses: azure/login@v2.3.0
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-          auth-type: IDENTITY
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      # 🌍 Required environment variables for Terraform OIDC
-      - name: Set Terraform AzureRM OIDC environment variables
+      # 🌍 Required environment variables for Terraform
+      - name: Set Terraform AzureRM environment variables
         run: |
-          echo "ARM_USE_OIDC=true" >> $GITHUB_ENV
           echo "ARM_CLIENT_ID=${{ secrets.AZURE_CLIENT_ID }}" >> $GITHUB_ENV
+          echo "ARM_CLIENT_SECRET=${{ secrets.AZURE_CLIENT_SECRET }}" >> $GITHUB_ENV
           echo "ARM_TENANT_ID=${{ secrets.AZURE_TENANT_ID }}" >> $GITHUB_ENV
           echo "ARM_SUBSCRIPTION_ID=${{ secrets.AZURE_SUBSCRIPTION_ID }}" >> $GITHUB_ENV
 
