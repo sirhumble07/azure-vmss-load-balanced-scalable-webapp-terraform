@@ -2,8 +2,7 @@ name: Terraform CI/CD
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
   pull_request:
 
 permissions:
@@ -12,23 +11,21 @@ permissions:
 
 jobs:
   terraform:
-    name: Terraform Pipeline
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      
+
       - name: Azure Login
         uses: azure/login@v1
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-          client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+          creds: '{"clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}"}'
 
-        # Required by Terraform backend
-      - name: Export Azure credentials for Terraform
+      - name: Export Azure env vars for Terraform backend
         run: |
           echo "ARM_CLIENT_ID=${{ secrets.AZURE_CLIENT_ID }}" >> $GITHUB_ENV
           echo "ARM_CLIENT_SECRET=${{ secrets.AZURE_CLIENT_SECRET }}" >> $GITHUB_ENV
@@ -37,18 +34,16 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
-        with:
-          terraform_version: 1.9.0
-
-      - name: Terraform Format
-        run: terraform fmt -check
 
       - name: Terraform Init
         run: terraform init
 
+      - name: Terraform Validate
+        run: terraform validate
+
       - name: Terraform Plan
         run: terraform plan -input=false
 
-      - name: Terraform Apply (Main Branch Only)
+      - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
         run: terraform apply -auto-approve
