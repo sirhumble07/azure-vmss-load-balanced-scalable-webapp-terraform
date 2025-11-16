@@ -219,6 +219,8 @@ LinkedIn: https://www.linkedin.com/in/victornwoke
 
 # ** 🙌 Author **
 
-### ** Victor Nwoke **
+### Victor Nwoke
+
 ### Cloud Infrastructure Engineer | Azure | DevOps | Terraform
+
 ### LinkedIn: https://www.linkedin.com/in/victornwoke
