@@ -5,6 +5,9 @@ terraform.tfstate.backup
 # Crash logs
 crash.log
 
+# Terraform plan files
+*.tfplan
+
 # Terraform hidden folder
 .terraform/
 
@@ -13,10 +16,13 @@ crash.log
 *.auto.tfvars
 
 # Private keys
+id_rsa
+id_rsa.pub
+id_ed25519
+id_ed25519.pub
 *.pem
 *.key
-id_rsa
-id_ed25519
+*.pfx
 key
 
 # Local override files
@@ -24,3 +30,36 @@ override.tf
 override.tf.json
 *_override.tf
 *_override.tf.json
+
+# Provider-specific files
+.terraform.lock.hcl.backup
+
+# IDE files
+.vscode/
+.idea/
+*.iml
+*.sublime-project
+*.sublime-workspace
+
+# MacOS generated files
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Azure auth files
+azureProfile.json
+azureCredentials.json
+
+# Logs
+*.log
+
+# Bash scripts cache
+#############################
+*.sh.~
+
+# Backup files
+#############################
+*.bak
+*.backup
+*~
