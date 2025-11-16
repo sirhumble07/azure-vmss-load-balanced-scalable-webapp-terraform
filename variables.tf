@@ -77,6 +77,11 @@ variable "ssh_public_key_path" {
   default     = "key.pub"
 }
 
+variable "ssh_public_key" {
+  type = string
+}
+
+
 # Separating variables from logic is a fundamental Terraform practice: 
 
 # it allows re-use across environments (dev/staging/prod) 
