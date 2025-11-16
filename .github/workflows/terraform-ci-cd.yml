@@ -31,7 +31,16 @@ jobs:
           ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       - name: Terraform Init
-        run: terraform init
+        run: |
+          terraform init \
+            -backend-config="resource_group_name=vic-rg" \
+            -backend-config="storage_account_name=vicstorageacct18616" \
+            -backend-config="container_name=tfstate" \
+            -backend-config="key=dev.terraform.tfstate" \
+            -backend-config="client_id=${ARM_CLIENT_ID}" \
+            -backend-config="client_secret=${ARM_CLIENT_SECRET}" \
+            -backend-config="subscription_id=${ARM_SUBSCRIPTION_ID}" \
+            -backend-config="tenant_id=${ARM_TENANT_ID}"
         env:
           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
