@@ -23,7 +23,6 @@ id_ed25519.pub
 *.pem
 *.key
 *.pfx
-key
 
 # Local override files
 override.tf
