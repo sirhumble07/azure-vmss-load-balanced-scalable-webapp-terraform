@@ -32,11 +32,13 @@ jobs:
         run: echo "TF_VAR_ssh_public_key=${{ secrets.SSH_PUBLIC_KEY }}" >> $GITHUB_ENV
 
       - name: Terraform Init
-        run: terraform init \
-           -backend-config="resource_group_name=vic-rg" \
-           -backend-config="storage_account_name=vicstorageacct18616" \
-           -backend-config="container_name=tfstate" \
-           -backend-config="key=dev.terraform.tfstate"
+        run: |
+          terraform init \
+          -backend-config="resource_group_name=vic-rg" \
+          -backend-config="storage_account_name=vicstorageacct18616" \
+          -backend-config="container_name=tfstate" \
+          -backend-config="key=dev.terraform.tfstate"
+
         env:
           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
