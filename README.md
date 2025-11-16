@@ -208,4 +208,9 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: terraform apply -auto-approve
 
+# ** 🙌 Author **
+
+*** Victor Nwoke ***
+Cloud Infrastructure Engineer | Azure | DevOps | Terraform
+LinkedIn: https://www.linkedin.com/in/victornwoke
 
