@@ -4,10 +4,10 @@ resource "azurerm_network_security_group" "myNSG" {
   name                = "myNSG"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  tags =  local.common_tags
+  tags                = local.common_tags
 
   dynamic "security_rule" {
-     for_each = local.allowed_ports
+    for_each = local.allowed_ports
     content {
       name                       = "allow-${security_rule.key}"
       priority                   = 110 + index(keys(local.allowed_ports), security_rule.key) * 10
@@ -20,8 +20,8 @@ resource "azurerm_network_security_group" "myNSG" {
       destination_address_prefix = "*"
     }
   }
-# Allow traffic from the Azure Load Balancer probe
-    security_rule {
+  # Allow traffic from the Azure Load Balancer probe
+  security_rule {
     name                       = "Allow-LB-Probe"
     priority                   = 100
     direction                  = "Inbound"

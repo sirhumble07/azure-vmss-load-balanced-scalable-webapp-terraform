@@ -12,11 +12,11 @@ resource "azurerm_orchestrated_virtual_machine_scale_set" "vmss_main" {
   sku_name                    = var.vm_size
   instances                   = 3
   platform_fault_domain_count = 1     # For zonal deployments
-  zones                       = ["1"]   # Deploy in zone 1
+  zones                       = ["1"] # Deploy in zone 1
   tags                        = var.common_tags
 
   os_profile {
-    custom_data = base64encode(file("user-data.sh")) 
+    custom_data = base64encode(file("user-data.sh"))
     linux_configuration {
       disable_password_authentication = true
       admin_username                  = var.admin_username

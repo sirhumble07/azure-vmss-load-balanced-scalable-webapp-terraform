@@ -8,11 +8,11 @@ resource "azurerm_virtual_network" "main" {
   address_space       = ["10.0.0.0/16"]
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
-  tags              = var.common_tags
+  tags                = var.common_tags
 }
 
 resource "azurerm_subnet" "subnet" {
-  name                 =  var.subnet
+  name                 = var.subnet
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.main.name
   address_prefixes     = ["10.0.0.0/24"]
@@ -50,7 +50,7 @@ resource "azurerm_lb_backend_address_pool" "bepool" {
     azurerm_lb.main,
     azurerm_public_ip.main
   ]
- 
+
 }
 
 #set up load balancer rule from azurerm_lb.main frontend ip to azurerm_lb_backend_address_pool.bepool backend ip port 80 to port 80
@@ -103,9 +103,9 @@ resource "azurerm_nat_gateway" "main" {
   sku_name                = "Standard"
   idle_timeout_in_minutes = 10
   zones                   = ["1"]
-# add lifecycle to create before destroy
+  # add lifecycle to create before destroy
   lifecycle {
-   create_before_destroy = true
+    create_before_destroy = true
   }
 }
 
@@ -113,10 +113,10 @@ resource "azurerm_nat_gateway" "main" {
 resource "azurerm_subnet_nat_gateway_association" "main" {
   subnet_id      = azurerm_subnet.subnet.id
   nat_gateway_id = azurerm_nat_gateway.main.id
-  depends_on = [ 
+  depends_on = [
     azurerm_nat_gateway.main,
     azurerm_public_ip.natgwpip
-   ]
+  ]
 }
 
 # add nat gateway public ip association
@@ -124,8 +124,8 @@ resource "azurerm_nat_gateway_public_ip_association" "main" {
   public_ip_address_id = azurerm_public_ip.natgwpip.id
   nat_gateway_id       = azurerm_nat_gateway.main.id
 
-  depends_on = [ 
+  depends_on = [
     azurerm_nat_gateway.main,
     azurerm_public_ip.natgwpip
-   ]
+  ]
 }

@@ -10,53 +10,53 @@ variable "common_tags" {
 
 # Azure region to deploy resources in
 variable "location" {
-    description = "The Azure region to deploy resources in"
-    type        = string
-    default     = "westus2"
-  
+  description = "The Azure region to deploy resources in"
+  type        = string
+  default     = "westus2"
+
 }
 
 # Resource Group name
 variable "resource_group_name" {
-    description = "The name of the resource group"
-    type        = string
-    default     = "victor-rg"
+  description = "The name of the resource group"
+  type        = string
+  default     = "victor-rg"
 }
 
 # Virtual Network name
 variable "vnet_name" {
-    description = "The name of the Virtual Network"
-    type        = string
-    default     = "victor-vnet"
+  description = "The name of the Virtual Network"
+  type        = string
+  default     = "victor-vnet"
 }
 
 # Subnet name
 variable "subnet" {
   description = "The name of the subnet"
-  type = string
-  default = "subnet"
+  type        = string
+  default     = "subnet"
 }
 
 # Name of the Virtual Machine Scale Set
 variable "vmss_name" {
-    description = "The name of the Virtual Machine Scale Set"
-    type        = string
-    default     = "my-vmss"
+  description = "The name of the Virtual Machine Scale Set"
+  type        = string
+  default     = "my-vmss"
 }
 
 # Number of instances in the VMSS
 variable "instance_count" {
-    description = "The number of instances in the VMSS"
-    type        = number
-    default     = 3
+  description = "The number of instances in the VMSS"
+  type        = number
+  default     = 3
 }
 
 # VM size with validation to prevent misconfiguration
 variable "vm_size" {
-    description = "The size of the VM instances"
-    type        = string
-    default     = "Standard_D2s_v4"
-      validation {
+  description = "The size of the VM instances"
+  type        = string
+  default     = "Standard_D2s_v4"
+  validation {
     condition     = contains(["Standard_D2s_v4", "Standard_D4s_v3", "Standard_B2ms"], var.vm_size)
     error_message = "Invalid VM size. Choose from Standard_D2s_v4, Standard_D4s_v3, or Standard_B2ms."
   } # This prevents misconfiguration during onboarding.
@@ -64,17 +64,17 @@ variable "vm_size" {
 
 # Admin username for the VM instances
 variable "admin_username" {
-    description = "The admin username for the VM instances"
-    type        = string
-    default     = "adminuser"
-  
+  description = "The admin username for the VM instances"
+  type        = string
+  default     = "adminuser"
+
 }
 
 # Path to the SSH public key
 variable "ssh_public_key_path" {
-    description = "The path to the SSH public key"
-    type        = string
-    default     = "key.pub"
+  description = "The path to the SSH public key"
+  type        = string
+  default     = "key.pub"
 }
 
 # Separating variables from logic is a fundamental Terraform practice: 
