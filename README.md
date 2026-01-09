@@ -9,11 +9,7 @@ It showcases industry best practices for building secure, scalable, and fully au
 
 # 📌 **Architecture Overview**
 
-```
-(Insert your azure_vmss_architecture.png here)
-Or use:
 ![Architecture](./azure_vmss_architecture.png)
-```
 
 ### **Components Included**
 - **Azure Virtual Machine Scale Set (Flexible Orchestration Mode)**
